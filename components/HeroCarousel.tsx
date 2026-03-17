@@ -45,7 +45,7 @@ export function HeroCarousel() {
 
         {/* ✅ Fixed-height clipping container */}
         <div className="relative h-64 w-full overflow-hidden">
-          <AnimatePresence custom={direction} initial={false}>
+          <AnimatePresence custom={direction} initial={false} >
             <motion.img
               key={current}                   // ✅ key change triggers animation
               src={slides[current].src}
@@ -55,7 +55,7 @@ export function HeroCarousel() {
               initial="enter"
               animate="center"
               exit="exit"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="w-full h-full object-contain md:object-cover mx-auto"
               draggable={false}
             />
           </AnimatePresence>

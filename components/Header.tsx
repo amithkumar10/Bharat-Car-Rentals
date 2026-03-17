@@ -46,7 +46,7 @@ export function Header() {
           <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold">
             B
           </div>
-          <div className="hidden sm:flex flex-col">
+          <div className=" sm:flex flex-col">
             <h1 className="text-xl font-bold text-foreground">Bharat Rentals</h1>
             <p className="text-xs text-muted-foreground">Car & Bike Rentals</p>
           </div>

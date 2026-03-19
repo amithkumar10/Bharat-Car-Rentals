@@ -2,8 +2,11 @@
 
 import { Phone, MessageCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 export function FloatingButtons() {
+  const [isFooterVisible, setIsFooterVisible] = useState(false)
+
   const handleCall = () => {
     window.location.href = 'tel:+919876543210'
   }
@@ -15,15 +18,39 @@ export function FloatingButtons() {
     )
   }
 
+  useEffect(() => {
+    const footer = document.querySelector('footer')
+    if (!footer) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting)
+      },
+      { threshold: 0.2 }
+    )
+
+    observer.observe(footer)
+
+    return () => observer.disconnect()
+  }, [])
+
+  const buttonStyles = `
+    flex-1 max-w-xs flex items-center justify-center gap-2 
+    px-4 py-3 rounded shadow-sm transition-all font-semibold border
+  `
+
   return (
-    <div className="fixed bottom-0 left-0 w-full border border-primary flex justify-center gap-1 z-50 md:hidden">
+    <div className="fixed bottom-0 left-0 w-full flex justify-center gap-1 z-50 md:hidden px-2 pb-2">
+      
       {/* WhatsApp Button */}
       <motion.button
         onClick={handleWhatsApp}
-        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex-1 max-w-xs flex items-center justify-center gap-2 px-4 py-3 bg-white/10 backdrop-blur-sm text-gray-800 rounded shadow-sm hover:shadow-md transition-all font-semibold border border-white/20"
-        title="Chat on WhatsApp"
+        className={`${buttonStyles} ${
+          isFooterVisible
+            ? 'text-white bg-black/40 border-white/20'
+            : 'text-gray-800 bg-white/10 border-white/20'
+        }`}
       >
         <MessageCircle className="w-5 h-5" />
         WhatsApp
@@ -32,14 +59,17 @@ export function FloatingButtons() {
       {/* Call Button */}
       <motion.button
         onClick={handleCall}
-        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex-1 max-w-xs flex items-center justify-center gap-2 px-4 py-3 bg-white/10 backdrop-blur-sm text-gray-800 rounded shadow-sm hover:shadow-md transition-all font-semibold border border-white/20"
-        title="Call us"
+        className={`${buttonStyles} ${
+          isFooterVisible
+            ? 'text-white bg-black/40 border-white/20'
+            : 'text-gray-800 bg-white/10 border-white/20'
+        }`}
       >
         <Phone className="w-5 h-5" />
         Call
       </motion.button>
+
     </div>
   )
 }

@@ -51,25 +51,35 @@ const reviews: Review[] = [
 
 function ReviewCard({ review }: { review: Review }) {
   return (
-    <div className="flex-shrink-0 w-80 bg-card rounded-2xl p-6 shadow-lg border border-border">
-      <div className="space-y-4">
+    <div className="flex-shrink-0 w-64 sm:w-80 bg-card rounded-2xl p-4 sm:p-6 shadow-lg border border-border">
+      <div className="space-y-3 sm:space-y-4">
+        
         <div className="flex gap-1">
           {[...Array(review.rating)].map((_, i) => (
-            <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+            <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-primary text-primary" />
           ))}
         </div>
-        <p className="text-foreground leading-relaxed">{review.text}</p>
-        <div className="pt-4 border-t border-border">
-          <p className="font-semibold text-foreground">{review.author}</p>
-          <div className="flex items-center gap-2 mt-2">
+
+        <p className="text-sm sm:text-base text-foreground leading-relaxed">
+          {review.text}
+        </p>
+
+        <div className="pt-3 sm:pt-4 border-t border-border">
+          <p className="text-sm sm:text-base font-semibold text-foreground">
+            {review.author}
+          </p>
+          <div className="flex items-center gap-2 mt-1.5 sm:mt-2">
             <img
               src="https://www.google.com/favicon.ico"
               alt="Google"
-              className="w-4 h-4"
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4"
             />
-            <span className="text-xs text-muted-foreground">Google Review</span>
+            <span className="text-[10px] sm:text-xs text-muted-foreground">
+              Google Review
+            </span>
           </div>
         </div>
+
       </div>
     </div>
   )
@@ -83,49 +93,51 @@ export function ReviewsCarousel() {
   ]
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted overflow-hidden">
-      <div className="max-w-7xl mx-auto space-y-12">
-        <div className="text-center space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            What Our Customers Say
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Join thousands of happy travelers who trusted us for their Goa adventure
-          </p>
-        </div>
+   <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-muted overflow-hidden">
+  <div className="max-w-7xl mx-auto space-y-10 sm:space-y-12">
 
-        {/* Review Rows */}
-        <div className="space-y-6">
-          {reviewRows.map((row, rowIndex) => (
-            <div key={rowIndex} className="relative h-96 overflow-hidden">
-              <motion.div
-                className="flex gap-6 h-full"
-                animate={{
-                  x: rowIndex % 2 === 0 ? [0, -1920] : [0, 1920],
-                }}
-                transition={{
-                  duration: 30,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-              >
-                {/* Original set */}
-                {row.map((review) => (
-                  <ReviewCard key={`original-${review.id}`} review={review} />
-                ))}
-                {/* Duplicate set for seamless loop */}
-                {row.map((review) => (
-                  <ReviewCard key={`duplicate-${review.id}`} review={review} />
-                ))}
-              </motion.div>
+    {/* Header */}
+    <div className="text-center space-y-3 sm:space-y-4">
+      <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground">
+        What Our Customers Say
+      </h2>
+      <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
+        Join thousands of happy travelers who trusted us for their Goa adventure
+      </p>
+    </div>
 
-              {/* Gradient edges */}
-              <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-muted to-transparent pointer-events-none" />
-              <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-muted to-transparent pointer-events-none" />
-            </div>
-          ))}
+    {/* Review Rows */}
+    <div className="space-y-4 sm:space-y-6">
+      {reviewRows.map((row, rowIndex) => (
+        <div key={rowIndex} className="relative h-72 sm:h-96 overflow-hidden">
+          
+          <motion.div
+            className="flex gap-4 sm:gap-6 h-full"
+            animate={{
+              x: rowIndex % 2 === 0 ? ['0%', '-100%'] : ['0%', '100%'],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          >
+            {row.map((review) => (
+              <ReviewCard key={`original-${review.id}`} review={review} />
+            ))}
+            {row.map((review) => (
+              <ReviewCard key={`duplicate-${review.id}`} review={review} />
+            ))}
+          </motion.div>
+
+          {/* Gradient edges */}
+          <div className="absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-muted to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-muted to-transparent pointer-events-none" />
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
+
+  </div>
+</section>
   )
 }

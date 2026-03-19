@@ -25,7 +25,7 @@ export function CTA() {
       <div className="relative z-10 max-w-8xl mx-auto text-center space-y-8">
         <div className=" px-6 py-2 w-full min-w-full">
          <div className='flex  items-center gap-30'>
-           <img src="/Ready-img.png" className='h-60' alt="" />
+           <img src="/Ready-img.png" className='h-60 hidden md:block' alt="" />
            <div>
             <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground">
             Ready to Explore Goa?
@@ -33,7 +33,11 @@ export function CTA() {
            <p className="text-lg mt-5 md:text-xl text-primary-foreground/90">
             Call us now or message on WhatsApp to reserve your ride today!
           </p>
+
+           <img src="/Ready-img.png" className='h-50 block md:hidden inline' alt="" />
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+
           <Button
             size="lg"
             onClick={handleCall}

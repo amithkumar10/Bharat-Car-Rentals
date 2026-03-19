@@ -48,8 +48,8 @@ export function FloatingButtons() {
         whileTap={{ scale: 0.95 }}
         className={`${buttonStyles} ${
           isFooterVisible
-            ? 'text-white bg-black/40 border-white/20'
-            : 'text-gray-800 bg-white/10 border-white/20'
+            ? 'text-white bg-black/40 border-white/20 backdrop-blur-sm'
+            : 'text-gray-800 bg-white/10 border-white/20 backdrop-blur-sm'
         }`}
       >
         <MessageCircle className="w-5 h-5" />
@@ -62,8 +62,8 @@ export function FloatingButtons() {
         whileTap={{ scale: 0.95 }}
         className={`${buttonStyles} ${
           isFooterVisible
-            ? 'text-white bg-black/40 border-white/20'
-            : 'text-gray-800 bg-white/10 border-white/20'
+            ? 'text-white bg-black/40 border-white/20 backdrop-blur-sm'
+            : 'text-gray-800 bg-white/10 border-white/20 backdrop-blur-sm'
         }`}
       >
         <Phone className="w-5 h-5" />
